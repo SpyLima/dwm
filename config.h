@@ -18,7 +18,7 @@ static const int topbar             = 1;     /* 0 means bottom bar */
 
 /* WinIcon */
 #define ICONSIZE 13   /* icon size */
-#define ICONSPACING 5 /* space between icon and title */
+#define ICONSPACING 10 /* space between icon and title */
 
 static const char *fonts[]     = {"SauceCodePro Nerd Font Mono:weight=bold:size=9:antialias=true:hinting=true",
 	                              "Mononoki:size=9:antialias=true:autohint=true",
@@ -27,15 +27,21 @@ static const char *fonts[]     = {"SauceCodePro Nerd Font Mono:weight=bold:size=
 static const char dmenufont[]  = {"SauceCodePro Nerd Font Mono:weight=bold:size=9:antialias=true:hinting=true"};
 
 /* Colors */
-static const char col_gray1[]       = "#222222";
-static const char col_gray2[]       = "#444444";
-static const char col_gray3[]       = "#bbbbbb";
-static const char col_gray4[]       = "#eeeeee";
-static const char col_cyan[]        = "#005577";
+static const char col_fg[]  = "#D9E0EE";
+static const char col_bg[]  = "#1E1E2E";
+/* Active Colors */
+static const char col_acbg[] = "#575268";
+static const char col_acfg[] = "#F5C2E7";
+static const char col_acbd[] = "#C9CBFF";
+/* Inactive Colors */
+static const char col_inbg[] = "#1E1E2E";
+static const char col_infg[] = "#D9E0EE";
+static const char col_inbd[] = "#575268";
+
 static const char *colors[][3]      = {
-	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
+	/*             fg          bg        border   */
+	[SchemeNorm] = { col_infg, col_inbg, col_inbd },
+	[SchemeSel]  = { col_acfg, col_acbg, col_acbd  },
 };
 
 /* tagging */
@@ -77,7 +83,7 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
+static const char *dmenucmd[] = { "dmenu_run_history", "-m", dmenumon, "-fn", dmenufont, "-nb", col_bg, "-nf", col_fg, "-sb", col_acbg, "-sf", col_acfg, NULL };
 static const char *termcmd[]  = { "alacritty", NULL };
 
 #include "movestack.c"
