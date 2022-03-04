@@ -87,6 +87,9 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run_history", "-m", dmenumon, "-fn", dmenufont, "-nb", col_bg, "-nf", col_fg, "-sb", col_acbg, "-sf", col_acfg, NULL };
 static const char *termcmd[]  = { "alacritty", NULL };
+/* Flameshot */
+static const char *flmscr[]   = { "flameshot", "screen", NULL};
+static const char *flmsel[]   = { "flameshot", "gui",    NULL};
 /* Pipewire|Pulseaudio / Playerctl */
 #include <X11/XF86keysym.h>
 static const char *pipeup[]   = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "+10%", NULL};
@@ -143,16 +146,16 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_Escape, quit,           {0} },
   { MODKEY|ShiftMask,             XK_r,      quit,           {1} }, 
 
-  {0,                             XF86XK_AudioMute,        spawn, {.v = pipeup}},
-  {0,                             XF86XK_AudioLowerVolume, spawn, {.v = pipedw}},
-  {0,                             XF86XK_AudioRaiseVolume, spawn, {.v = pipemt}},
-  {0,                             XF86XK_AudioPlay,        spawn, {.v = playpp}},
-  {0,                             XF86XK_AudioNext,        spawn, {.v = playnx}},
-  {0,                             XF86XK_AudioPrev,        spawn, {.v = playpr}},
-// XF86AudioNext
-// XF86AudioPrev
-// XF86AudioPause
-// XF86AudioPlay
+  { 0,                            XK_Print,  spawn,          {.v = flmscr}},
+  { MODKEY|ShiftMask ,            XK_Print,  spawn,          {.v = flmsel}},
+
+  { 0,                             XF86XK_AudioMute,        spawn, {.v = pipeup}},
+  { 0,                             XF86XK_AudioLowerVolume, spawn, {.v = pipedw}},
+  { 0,                             XF86XK_AudioRaiseVolume, spawn, {.v = pipemt}},
+  { 0,                             XF86XK_AudioPlay,        spawn, {.v = playpp}},
+  { 0,                             XF86XK_AudioNext,        spawn, {.v = playnx}},
+  { 0,                             XF86XK_AudioPrev,        spawn, {.v = playpr}},
+
 };
 
 /* button definitions */
