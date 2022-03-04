@@ -67,7 +67,6 @@ static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "[]=",      tile },    /* first entry is default */
 	{ "><>",      NULL },    /* no layout function means floating behavior */
-	{ "[M]",      monocle },
 };
 
 /* key definitions */
@@ -79,36 +78,46 @@ static const Layout layouts[] = {
 	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
-#define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
+#define CMD(cmd)                                                               \
+{                                                                            \
+  .v = (const char *[]) { "/bin/sh", "-c", cmd, NULL }                       \
+}
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run_history", "-m", dmenumon, "-fn", dmenufont, "-nb", col_bg, "-nf", col_fg, "-sb", col_acbg, "-sf", col_acfg, NULL };
 static const char *termcmd[]  = { "alacritty", NULL };
+/* Pipewire|Pulseaudio / Playerctl */
+#include <X11/XF86keysym.h>
+static const char *pipeup[]   = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "+10%", NULL};
+static const char *pipedw[]   = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "-10%", NULL};
+static const char *pipemt[]   = { "pactl", "set-sink-mute", "@DEFAULT_SINK@", "toggle", NULL};
+static const char *playpp[]   = { "playerctl", "play-pause", NULL};
+static const char *playnx[]   = { "playerctl", "next"      , NULL};
+static const char *playpr[]   = { "playerctl", "previous"  , NULL};
 
 #include "movestack.c"
 static Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
-	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
+	{ MODKEY,                       XK_d,      spawn,          {.v = dmenucmd } },
+	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 
-	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
-	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
+	{ MODKEY,                       XK_Up,     focusstack,     {.i = -1 } },
+	{ MODKEY,                       XK_Down,   focusstack,     {.i = +1 } },
 
-	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
-	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
+	// { MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
+	// { MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
 
-	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
-	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
+	{ MODKEY,                       XK_Left,   setmfact,       {.f = -0.05} },
+	{ MODKEY,                       XK_Right,  setmfact,       {.f = +0.05} },
 
-	{ MODKEY|ShiftMask,             XK_j,      movestack,      {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_k,      movestack,      {.i = -1 } },
+	{ MODKEY|ShiftMask,             XK_Up,     movestack,      {.i = -1 } },
+	{ MODKEY|ShiftMask,             XK_Down,   movestack,      {.i = +1 } },
 
-	{ MODKEY,                       XK_Return, zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 
-	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
+	{ MODKEY,                       XK_c,      killclient,     {0} },
 
   { MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
@@ -131,9 +140,19 @@ static Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
 
-	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
-  { MODKEY|ControlMask|ShiftMask, XK_q,      quit,           {1} }, 
+	{ MODKEY|ShiftMask,             XK_Escape, quit,           {0} },
+  { MODKEY|ShiftMask,             XK_r,      quit,           {1} }, 
 
+  {0,                             XF86XK_AudioMute,        spawn, {.v = pipeup}},
+  {0,                             XF86XK_AudioLowerVolume, spawn, {.v = pipedw}},
+  {0,                             XF86XK_AudioRaiseVolume, spawn, {.v = pipemt}},
+  {0,                             XF86XK_AudioPlay,        spawn, {.v = playpp}},
+  {0,                             XF86XK_AudioNext,        spawn, {.v = playnx}},
+  {0,                             XF86XK_AudioPrev,        spawn, {.v = playpr}},
+// XF86AudioNext
+// XF86AudioPrev
+// XF86AudioPause
+// XF86AudioPlay
 };
 
 /* button definitions */
