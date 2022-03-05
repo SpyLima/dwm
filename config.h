@@ -52,7 +52,9 @@ static const Rule rules[] = {
 	/* class      instance    title       tags mask     isfloating   monitor */
   { "Nitrogen", NULL,       NULL,       0,            1,           -1},
   { "Thunar",   NULL,       NULL,       0,            1,           -1},
-  { "Lxappearance", "lxappearance", NULL,       0,            1,           -1},
+  { "Lxappearance", "lxappearance", NULL,       0,    1,           -1},
+  { "Blueman-manager", "blueman-manager", NULL, 0,    1,           -1},
+  { "Pavucontrol", "pavucontrol", NULL, 0,            1,           -1},
 };
 
 /* layout(s) */
@@ -144,8 +146,8 @@ static Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
-
-  { MODKEY|ShiftMask,             XK_Escape, try_quit,       {0} },
+	
+  { MODKEY|ShiftMask,             XK_Escape, quit,           {0} },
   { MODKEY|ShiftMask,             XK_r,      quit,           {1} }, 
 
   { 0,                            XK_Print,  spawn,          {.v = flmsel}},

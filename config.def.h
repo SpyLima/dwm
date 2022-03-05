@@ -20,10 +20,7 @@ static const int topbar             = 1;     /* 0 means bottom bar */
 #define ICONSIZE 13   /* icon size */
 #define ICONSPACING 10 /* space between icon and title */
 
-static const char *fonts[]     = {"SauceCodePro Nerd Font Mono:weight=bold:size=9:antialias=true:hinting=true",
-	                              "Mononoki:size=9:antialias=true:autohint=true",
-                                  "Hack:size=8:antialias=true:autohint=true",
-                                  "JoyPixels:size=10:antialias=true:autohint=true"};
+static const char *fonts[]     = {"SauceCodePro Nerd Font Mono:weight=bold:size=9:antialias=true:hinting=true", "Mononoki:size=9:antialias=true:autohint=true", "Hack:size=8:antialias=true:autohint=true", "JoyPixels:size=10:antialias=true:autohint=true"};
 static const char dmenufont[]  = {"SauceCodePro Nerd Font Mono:weight=bold:size=9:antialias=true:hinting=true"};
 
 /* Colors */
@@ -53,8 +50,11 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
-	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
+  { "Nitrogen", NULL,       NULL,       0,            1,           -1},
+  { "Thunar",   NULL,       NULL,       0,            1,           -1},
+  { "Lxappearance", "lxappearance", NULL,       0,    1,           -1},
+  { "Blueman-manager", "blueman-manager", NULL, 0,    1,           -1},
+  { "Pavucontrol", "pavucontrol", NULL, 0,            1,           -1},
 };
 
 /* layout(s) */
@@ -86,13 +86,28 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run_history", "-m", dmenumon, "-fn", dmenufont, "-nb", col_bg, "-nf", col_fg, "-sb", col_acbg, "-sf", col_acfg, NULL };
-static const char *termcmd[]  = { "alacritty", NULL };
+static const char *rofidrun[] = { "rofi", "-show", "drun", NULL };
+static const char *termone[]  = { "alacritty", "-e", "fish", NULL };
+static const char *termtwo[]  = { "kitty", NULL };
+/* Flameshot */
+static const char *flmscr[]   = { "flameshot", "screen", "--clipboard", NULL };
+static const char *flmsel[]   = { "flameshot", "gui",    NULL };
+/* Pipewire|Pulseaudio / Playerctl */
+#include <X11/XF86keysym.h>
+static const char *pipeup[]   = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "+10%", NULL };
+static const char *pipedw[]   = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "-10%", NULL };
+static const char *pipemt[]   = { "pactl", "set-sink-mute", "@DEFAULT_SINK@", "toggle", NULL };
+static const char *playpp[]   = { "playerctl", "play-pause", NULL };
+static const char *playnx[]   = { "playerctl", "next"      , NULL };
+static const char *playpr[]   = { "playerctl", "previous"  , NULL };
 
 #include "movestack.c"
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_d,      spawn,          {.v = dmenucmd } },
-	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
+	{ MODKEY|ShiftMask,             XK_d,      spawn,          {.v = rofidrun } },
+	{ MODKEY,                       XK_Return, spawn,          {.v = termone } },
+	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termtwo } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 
 	{ MODKEY,                       XK_Up,     focusstack,     {.i = -1 } },
@@ -132,8 +147,18 @@ static Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
 
-	{ MODKEY|ShiftMask,             XK_Escape, quit,           {0} },
+  { MODKEY|ShiftMask,             XK_Escape, try_quit,       {0} },
   { MODKEY|ShiftMask,             XK_r,      quit,           {1} }, 
+
+  { 0,                            XK_Print,  spawn,          {.v = flmsel}},
+  { MODKEY|ShiftMask ,            XK_Print,  spawn,          {.v = flmscr}},
+
+  { 0,                             XF86XK_AudioMute,        spawn, {.v = pipeup}},
+  { 0,                             XF86XK_AudioLowerVolume, spawn, {.v = pipedw}},
+  { 0,                             XF86XK_AudioRaiseVolume, spawn, {.v = pipemt}},
+  { 0,                             XF86XK_AudioPlay,        spawn, {.v = playpp}},
+  { 0,                             XF86XK_AudioNext,        spawn, {.v = playnx}},
+  { 0,                             XF86XK_AudioPrev,        spawn, {.v = playpr}},
 
 };
 
@@ -144,7 +169,7 @@ static Button buttons[] = {
 	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
 	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
 	{ ClkWinTitle,          0,              Button2,        zoom,           {0} },
-	{ ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },
+	{ ClkStatusText,        0,              Button2,        spawn,          {.v = termone } },
 	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
 	{ ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
 	{ ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
@@ -154,8 +179,3 @@ static Button buttons[] = {
 	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
 };
 
-/* how many windows should be open when quitting? */
-/* on a stock dwm install, this seems to be two; however, you'll have to
- * change it depending on how many invisible X windows exist */
-/* you can get a list with `xwininfo -tree -root`. */
-static const int EMPTY_WINDOW_COUNT = 2;

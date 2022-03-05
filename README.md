@@ -17,7 +17,6 @@
 | AutoStart | Execute `autostart.sh` in ~/.dwm/ |
 | FocusOnMouse | Move mouse to selected monitor on focusmon |
 | MoveStack | Enable move the stack window  `MOD + Up/Down` |
-| OnlyQuitOnEmpty | Disable quit in a tag with opened window |
 | RestartSig | Restart DWM without close him |
 | SysTray | Show tray on right side |
 | UselessGap | Enable gaps when have 2+ windows in same tag |
