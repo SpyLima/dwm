@@ -88,7 +88,7 @@ static const char *rofidrun[] = { "rofi", "-show", "drun", NULL };
 static const char *termone[]  = { "alacritty", "-e", "fish", NULL };
 static const char *termtwo[]  = { "kitty", NULL };
 /* Flameshot */
-static const char *flmscr[]   = { "flameshot", "screen", NULL };
+static const char *flmscr[]   = { "flameshot", "screen", "--clipboard", NULL };
 static const char *flmsel[]   = { "flameshot", "gui",    NULL };
 /* Pipewire|Pulseaudio / Playerctl */
 #include <X11/XF86keysym.h>
@@ -145,7 +145,7 @@ static Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
 
-	{ MODKEY|ShiftMask,             XK_Escape, quit,           {0} },
+  { MODKEY|ShiftMask,             XK_Escape, try_quit,       {0} },
   { MODKEY|ShiftMask,             XK_r,      quit,           {1} }, 
 
   { 0,                            XK_Print,  spawn,          {.v = flmsel}},
