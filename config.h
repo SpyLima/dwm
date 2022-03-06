@@ -101,6 +101,7 @@ static const char *playpp[]   = { "playerctl", "play-pause", NULL };
 static const char *playnx[]   = { "playerctl", "next"      , NULL };
 static const char *playpr[]   = { "playerctl", "previous"  , NULL };
 
+#include "focusurgent.c"
 #include "movestack.c"
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -146,7 +147,8 @@ static Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
-	
+
+	{ MODKEY,                       XK_u,      focusurgent,    {0} },
   { MODKEY|ShiftMask,             XK_Escape, quit,           {0} },
   { MODKEY|ShiftMask,             XK_r,      quit,           {1} }, 
 
