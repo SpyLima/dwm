@@ -42,7 +42,7 @@ static const char *colors[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "4", "5"};
+static const char *tags[] = { "1", "2", "3", "4", "5", "6"};
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -50,11 +50,13 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
-  { "Nitrogen", NULL,       NULL,       0,            1,           -1},
-  { "Thunar",   NULL,       NULL,       0,            1,           -1},
-  { "Lxappearance", "lxappearance", NULL,       0,    1,           -1},
-  { "Blueman-manager", "blueman-manager", NULL, 0,    1,           -1},
-  { "Pavucontrol", "pavucontrol", NULL, 0,            1,           -1},
+  { "Nitrogen", NULL,       NULL,       0,            1,           -1 },
+  { "Thunar",   NULL,       NULL,       0,            1,           -1 },
+  { "Lxappearance", "lxappearance", NULL,       0,    1,           -1 },
+  { "Blueman-manager", "blueman-manager", NULL, 0,    1,           -1 },
+  { "Pavucontrol", "pavucontrol", NULL, 0,            1,           -1 },
+  { "Zathura", "org.pwmt.zathura", "org.pwmt.zathura", 0, 1,       -1 },
+  { "TelegramDesktop", "telegra-desktop", "Telegram",  0, 1        -1 },
 };
 
 /* layout(s) */
