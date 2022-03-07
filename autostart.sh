@@ -2,5 +2,6 @@
 
 sh ~/.fehbg &
 picom -CGb &
+dunst &
 nm-applet &
 slstatus &
