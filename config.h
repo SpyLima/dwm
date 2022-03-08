@@ -56,7 +56,8 @@ static const Rule rules[] = {
   { "Blueman-manager", "blueman-manager", NULL, 0,    1,           -1 },
   { "Pavucontrol", "pavucontrol", NULL, 0,            1,           -1 },
   { "Zathura", "org.pwmt.zathura", "org.pwmt.zathura", 0, 1,       -1 },
-  { "TelegramDesktop", "telegra-desktop", "Telegram",  0, 1        -1 },
+//   { "TelegramDesktop", "telegram-desktop", "Telegram",  0, 1,      -1 },
+  { "SimpleScreenRecorder", "simplescreenrecorder", "SimpleScreenRecorder", 0, 1, -1 },
 };
 
 /* layout(s) */
@@ -89,7 +90,7 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run_history", "-m", dmenumon, "-fn", dmenufont, "-nb", col_bg, "-nf", col_fg, "-sb", col_acbg, "-sf", col_acfg, NULL };
 static const char *rofidrun[] = { "rofi", "-show", "drun", NULL };
-static const char *termone[]  = { "alacritty", "-e", "fish", NULL };
+static const char *termone[]  = { "st", "-e", "fish", NULL };
 static const char *termtwo[]  = { "kitty", NULL };
 /* Flameshot */
 static const char *flmscr[]   = { "flameshot", "screen", "--clipboard", NULL };
@@ -151,7 +152,7 @@ static Key keys[] = {
 	TAGKEYS(                        XK_9,                      8)
 
 	{ MODKEY,                       XK_u,      focusurgent,    {0} },
-  { MODKEY|ShiftMask,             XK_Escape, quit,           {0} },
+  { MODKEY,                       XK_Escape, quit,           {0} },
   { MODKEY|ShiftMask,             XK_r,      quit,           {1} }, 
 
   { 0,                            XK_Print,  spawn,          {.v = flmsel}},
@@ -170,10 +171,8 @@ static Key keys[] = {
 /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
 static Button buttons[] = {
 	/* click                event mask      button          function        argument */
-	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
-	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
+  { ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
 	{ ClkWinTitle,          0,              Button2,        zoom,           {0} },
-	{ ClkStatusText,        0,              Button2,        spawn,          {.v = termone } },
 	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
 	{ ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
 	{ ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
@@ -182,9 +181,3 @@ static Button buttons[] = {
 	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
 	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
 };
-
-/* how many windows should be open when quitting? */
-/* on a stock dwm install, this seems to be two; however, you'll have to
- * change it depending on how many invisible X windows exist */
-/* you can get a list with `xwininfo -tree -root`. */
-static const int EMPTY_WINDOW_COUNT = 2;
