@@ -56,7 +56,7 @@ static const Rule rules[] = {
   { "Blueman-manager", "blueman-manager", NULL, 0,    1,           -1 },
   { "Pavucontrol", "pavucontrol", NULL, 0,            1,           -1 },
   { "Zathura", "org.pwmt.zathura", "org.pwmt.zathura", 0, 1,       -1 },
-//   { "TelegramDesktop", "telegram-desktop", "Telegram",  0, 1,      -1 },
+  { "TelegramDesktop", "telegram-desktop", "Telegram",  0, 1,      -1 },
   { "SimpleScreenRecorder", "simplescreenrecorder", "SimpleScreenRecorder", 0, 1, -1 },
 };
 
@@ -90,8 +90,8 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run_history", "-m", dmenumon, "-fn", dmenufont, "-nb", col_bg, "-nf", col_fg, "-sb", col_acbg, "-sf", col_acfg, NULL };
 static const char *rofidrun[] = { "rofi", "-show", "drun", NULL };
-static const char *termone[]  = { "st", "-e", "fish", NULL };
-static const char *termtwo[]  = { "kitty", NULL };
+static const char *termone[]  = { "alacritty", "-e", "fish", NULL };
+static const char *termtwo[]  = { "st", NULL };
 /* Flameshot */
 static const char *flmscr[]   = { "flameshot", "screen", "--clipboard", NULL };
 static const char *flmsel[]   = { "flameshot", "gui",    NULL };
