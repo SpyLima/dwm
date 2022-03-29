@@ -42,23 +42,7 @@ static const char *colors[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "4", "5", "6"};
-
-static const Rule rules[] = {
-	/* xprop(1):
-	 *	WM_CLASS(STRING) = instance, class
-	 *	WM_NAME(STRING) = title
-	 */
-	/* class      instance    title       tags mask     isfloating   monitor */
-  { "Nitrogen", NULL,       NULL,       0,            1,           -1 },
-  { "Thunar",   NULL,       NULL,       0,            1,           -1 },
-  { "Lxappearance", "lxappearance", NULL,       0,    1,           -1 },
-  { "Blueman-manager", "blueman-manager", NULL, 0,    1,           -1 },
-  { "Pavucontrol", "pavucontrol", NULL, 0,            1,           -1 },
-  { "Zathura", "org.pwmt.zathura", "org.pwmt.zathura", 0, 1,       -1 },
-  { "TelegramDesktop", "telegram-desktop", "Telegram",  0, 1,      -1 },
-  { "SimpleScreenRecorder", "simplescreenrecorder", "SimpleScreenRecorder", 0, 1, -1 },
-};
+static const char *tags[] = { "1", "2", "3"};
 
 /* layout(s) */
 static const float mfact     = 0.50; /* factor of master area size [0.05..0.95] */
@@ -70,6 +54,7 @@ static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "[T]",      tile },    /* first entry is default */
 	{ "[F]",      NULL },    /* no layout function means floating behavior */
+ 	{ "[M]",      monocle },
 };
 
 /* key definitions */
@@ -90,8 +75,8 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run_history", "-m", dmenumon, "-fn", dmenufont, "-nb", col_bg, "-nf", col_fg, "-sb", col_acbg, "-sf", col_acfg, NULL };
 static const char *rofidrun[] = { "rofi", "-show", "drun", NULL };
-static const char *termone[]  = { "alacritty", "-e", "fish", NULL };
-static const char *termtwo[]  = { "st", NULL };
+static const char *termone[]  = { "st", "-e", "fish", NULL };
+static const char *termtwo[]  = { "alacritty", NULL };
 /* Flameshot */
 static const char *flmscr[]   = { "flameshot", "screen", "--clipboard", NULL };
 static const char *flmsel[]   = { "flameshot", "gui",    NULL };
@@ -104,6 +89,7 @@ static const char *playpp[]   = { "playerctl", "play-pause", NULL };
 static const char *playnx[]   = { "playerctl", "next"      , NULL };
 static const char *playpr[]   = { "playerctl", "previous"  , NULL };
 
+#include "rules.h"
 #include "focusurgent.c"
 #include "movestack.c"
 static Key keys[] = {
@@ -129,6 +115,10 @@ static Key keys[] = {
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 
 	{ MODKEY,                       XK_c,      killclient,     {0} },
+
+	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
+	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
+	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
 
   { MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
