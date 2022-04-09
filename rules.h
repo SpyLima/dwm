@@ -11,5 +11,7 @@ static const Rule rules[] = {
   { "Pavucontrol", "pavucontrol", NULL, 0,            1,           -1 },
   { "Zathura", "org.pwmt.zathura", "org.pwmt.zathura", 0, 1,       -1 },
   { "TelegramDesktop", "telegram-desktop", "Telegram",  0, 1,      -1 },
+  { "st-256color", "st-256color", NULL, 0,            1,           -1 },
+	{ "GSu",			"yad",			"Password",	0,						1,					 -1 },
   { "SimpleScreenRecorder", "simplescreenrecorder", "SimpleScreenRecorder", 0, 1, -1 },
 };
