@@ -22,6 +22,8 @@
 | SysTray | Show tray on right side |
 | UselessGap | Enable gaps when have 2+ windows in same tag |
 | WinIcon | Enable show window icons ( dependencie: `imlib2` ) |
+| HideVacant | Hide empty tags |
+| MoveCenter | Move floating window to center `MOD + Space` |
 
 ## : Dependencies :
 
@@ -46,13 +48,12 @@ mv ./autostart.sh ~/.dwm/
 
 | Keybinding | Action |
 |:------------:|:--------|
-| Mod + 1-9 | switch to workspace [1-9] |
-| Mod + Shift + 1-9 | move focused window to [1-9] |
+| Mod + 1-9 | switch to workspace [1-5] |
+| Mod + Shift + 1-9 | move focused window to [1-5] |
 | Mod + 0 | See all opened windows |
 | Mod + Shift + 0 | Fix window |
 | Mod + D | dmenu |
-| Mod + Shift + D | rofi |
-| Mod + Enter | alacritty |
+| Mod + Enter | st |
 | Mod + Shift + Enter | kitty |
 | Mod + Shift + R | Restart DWM | 
 | Mod + Shift + Esc | Quit DWM |
@@ -62,7 +63,7 @@ mv ./autostart.sh ~/.dwm/
 | Keybinding | Action |
 |:------------:|:--------|
 | Mod + Tab | Change between last focus |
-| Mod + Space | Change layout |
+| Mod + Space | Center Window |
 | Mod + Shift + Space | Chage floating |
 | Mod + Up-Down | Change focus |
 | Mod + Shift + Up-Down | Move focused window |

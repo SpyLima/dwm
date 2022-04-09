@@ -2,7 +2,7 @@
 
 /* appearance */
 static const unsigned int borderpx  = 3;        /* border pixel of windows */
-static const unsigned int gappx     = 8;        /* gaps between windows */
+static const unsigned int gappx     = 6;        /* gaps between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 
 static const unsigned int systraypinning = 1;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
@@ -20,8 +20,8 @@ static const int topbar             = 1;     /* 0 means bottom bar */
 #define ICONSIZE 13   /* icon size */
 #define ICONSPACING 10 /* space between icon and title */
 
-static const char *fonts[]     = {"SauceCodePro Nerd Font Mono:weight=bold:size=9:antialias=true:hinting=true", "Mononoki:size=9:antialias=true:autohint=true", "Hack:size=8:antialias=true:autohint=true", "JoyPixels:size=10:antialias=true:autohint=true"};
-static const char dmenufont[]  = {"SauceCodePro Nerd Font Mono:weight=bold:size=9:antialias=true:hinting=true"};
+static const char *fonts[]     = {"SauceCodePro Nerd Font Mono:weight=bold:size=8:antialias=true:hinting=true", "Mononoki:size=8:antialias=true:autohint=true", "Hack:size=8:antialias=true:autohint=true", "JoyPixels:size=8:antialias=true:autohint=true"};
+static const char dmenufont[]  = {"SauceCodePro Nerd Font Mono:weight=bold:size=8:antialias=true:hinting=true"};
 
 /* Colors */
 static const char col_fg[]  = "#D9E0EE";
@@ -42,7 +42,7 @@ static const char *colors[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3"};
+static const char *tags[] = { "1", "2", "3", "4", "5", "6"};
 
 /* layout(s) */
 static const float mfact     = 0.50; /* factor of master area size [0.05..0.95] */
@@ -73,10 +73,9 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run_history", "-m", dmenumon, "-fn", dmenufont, "-nb", col_bg, "-nf", col_fg, "-sb", col_acbg, "-sf", col_acfg, NULL };
-static const char *rofidrun[] = { "rofi", "-show", "drun", NULL };
+static const char *dmenucmd[] = { "dmenu_run_history", "-m", dmenumon, "-fn", dmenufont, "-nb", col_bg, "-nf", col_fg, "-sb", col_acbg, "-sf", col_acfg, "-p", "❀ >", NULL };
 static const char *termone[]  = { "st", "-e", "fish", NULL };
-static const char *termtwo[]  = { "alacritty", NULL };
+static const char *termtwo[]  = { "kitty", NULL };
 /* Flameshot */
 static const char *flmscr[]   = { "flameshot", "screen", "--clipboard", NULL };
 static const char *flmsel[]   = { "flameshot", "gui",    NULL };
@@ -95,7 +94,6 @@ static const char *playpr[]   = { "playerctl", "previous"  , NULL };
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_d,      spawn,          {.v = dmenucmd } },
-	{ MODKEY|ShiftMask,             XK_d,      spawn,          {.v = rofidrun } },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termone } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termtwo } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
@@ -120,7 +118,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
 
-  { MODKEY,                       XK_space,  setlayout,      {0} },
+  { MODKEY,                       XK_space,  movecenter,     {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
