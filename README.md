@@ -8,26 +8,17 @@
 
 <img src="./.assets/preview.png" />
 
-## : Patches :
-
-| Name | Function |
-|:------:|:----------|
-| AlwaysCenter | Centralize windows in floating layout |
-| AttachAsideAndBelow | Spawn stack in side master and below |
-| AutoStart | Execute `autostart.sh` in ~/.dwm/ |
-| FocusOnMouse | Move mouse to selected monitor on focusmon |
-| FocusUrgent | Add keybind to focus on an urgent window |
-| MoveStack | Enable move the stack window  `MOD + Up/Down` |
-| RestartSig | Restart DWM without close him |
-| SysTray | Show tray on right side |
-| UselessGap | Enable gaps when have 2+ windows in same tag |
-| WinIcon | Enable show window icons ( dependencie: `imlib2` ) |
-| HideVacant | Hide empty tags |
-| MoveCenter | Move floating window to center `MOD + Space` |
-
 ## : Dependencies :
 
-``` dmenu, alacritty, kitty [optional], ttf-hack, ttf-joypixels, libxft-bgra, picom, feh, nerd-fonts-complete [AUR - optional] ```
+|||
+|:-:|:-:|
+|Terminal(main)|st|
+|Terminal|kitty|
+|Launcher|dmenu|
+|Compositor|picom|
+|Wallpaper|feh|
+|Others|ttf-hack, ttf-joypixels, libxft-bgra|
+|||
 
 ## : Installing :
 
@@ -48,15 +39,15 @@ mv ./autostart.sh ~/.dwm/
 
 | Keybinding | Action |
 |:------------:|:--------|
-| Mod + 1-9 | switch to workspace [1-5] |
-| Mod + Shift + 1-9 | move focused window to [1-5] |
+| Mod + 1-6 | switch to workspace |
+| Mod + Shift + 1-6 | move focused window |
 | Mod + 0 | See all opened windows |
 | Mod + Shift + 0 | Fix window |
 | Mod + D | dmenu |
 | Mod + Enter | st |
 | Mod + Shift + Enter | kitty |
 | Mod + Shift + R | Restart DWM | 
-| Mod + Shift + Esc | Quit DWM |
+| Mod + Shift + Q | Quit DWM |
 
 ### Layout
 
@@ -65,8 +56,8 @@ mv ./autostart.sh ~/.dwm/
 | Mod + Tab | Change between last focus |
 | Mod + Space | Center Window |
 | Mod + Shift + Space | Chage floating |
-| Mod + Up-Down | Change focus |
-| Mod + Shift + Up-Down | Move focused window |
-| Mod + Left-Right | Change side area size |
+| Mod + (up) K-J (down) | Change focus |
+| Mod + Shift + (up) K-J (down) | Move focused window |
+| Mod + (left) H-L (right) | Change side area size |
 | Mod + C | Close focused window |
 | Mod + B | Hide or Show bar |

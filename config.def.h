@@ -73,8 +73,8 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run_history", "-m", dmenumon, "-fn", dmenufont, "-nb", col_bg, "-nf", col_fg, "-sb", col_acbg, "-sf", col_acfg, "-p", "❀ >", NULL };
-static const char *termone[]  = { "st", "-e", "fish", NULL };
+static const char *dmenucmd[] = { "dmenu_run_history", "-m", dmenumon, "-fn", dmenufont, "-nb", col_bg, "-nf", col_fg, "-sb", col_acbg, "-sf", col_acfg, NULL };
+static const char *termone[]  = { "st", NULL };
 static const char *termtwo[]  = { "kitty", NULL };
 /* Flameshot */
 static const char *flmscr[]   = { "flameshot", "screen", "--clipboard", NULL };
@@ -84,7 +84,8 @@ static const char *flmsel[]   = { "flameshot", "gui",    NULL };
 static const char *pipeup[]   = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "+10%", NULL };
 static const char *pipedw[]   = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "-10%", NULL };
 static const char *pipemt[]   = { "pactl", "set-sink-mute", "@DEFAULT_SINK@", "toggle", NULL };
-static const char *playpp[]   = { "playerctl", "play-pause", NULL };
+static const char *playpp[]   = { "playerctl", "play"      , NULL };
+static const char *playps[]   = { "playerctl", "pause" 		 , NULL };
 static const char *playnx[]   = { "playerctl", "next"      , NULL };
 static const char *playpr[]   = { "playerctl", "previous"  , NULL };
 
@@ -98,17 +99,17 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termtwo } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 
-	{ MODKEY,                       XK_Up,     focusstack,     {.i = -1 } },
-	{ MODKEY,                       XK_Down,   focusstack,     {.i = +1 } },
+	{ MODKEY,                       XK_k,     focusstack,     {.i = -1 } },
+	{ MODKEY,                       XK_j,   focusstack,     {.i = +1 } },
 
 	// { MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
 	// { MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
 
-	{ MODKEY,                       XK_Left,   setmfact,       {.f = -0.05} },
-	{ MODKEY,                       XK_Right,  setmfact,       {.f = +0.05} },
+	{ MODKEY,                       XK_h,   setmfact,       {.f = -0.05} },
+	{ MODKEY,                       XK_l,  setmfact,       {.f = +0.05} },
 
-	{ MODKEY|ShiftMask,             XK_Up,     movestack,      {.i = -1 } },
-	{ MODKEY|ShiftMask,             XK_Down,   movestack,      {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_k,     movestack,      {.i = -1 } },
+	{ MODKEY|ShiftMask,             XK_j,     movestack,      {.i = +1 } },
 
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 
@@ -118,7 +119,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
 
-  { MODKEY,                       XK_space,  movecenter,     {0} },
+        { MODKEY,                       XK_space,  movecenter,     {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
@@ -135,13 +136,10 @@ static Key keys[] = {
 	TAGKEYS(                        XK_4,                      3)
 	TAGKEYS(                        XK_5,                      4)
 	TAGKEYS(                        XK_6,                      5)
-	TAGKEYS(                        XK_7,                      6)
-	TAGKEYS(                        XK_8,                      7)
-	TAGKEYS(                        XK_9,                      8)
-
+	
 	{ MODKEY,                       XK_u,      focusurgent,    {0} },
-  { MODKEY,                       XK_Escape, quit,           {0} },
-  { MODKEY|ShiftMask,             XK_r,      quit,           {1} }, 
+        { MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+        { MODKEY|ShiftMask,             XK_r,      quit,           {1} }, 
 
   { 0,                            XK_Print,  spawn,          {.v = flmsel}},
   { MODKEY|ShiftMask ,            XK_Print,  spawn,          {.v = flmscr}},
@@ -149,7 +147,9 @@ static Key keys[] = {
   { 0,                             XF86XK_AudioMute,        spawn, {.v = pipeup}},
   { 0,                             XF86XK_AudioLowerVolume, spawn, {.v = pipedw}},
   { 0,                             XF86XK_AudioRaiseVolume, spawn, {.v = pipemt}},
+
   { 0,                             XF86XK_AudioPlay,        spawn, {.v = playpp}},
+  { 0, 														 XF86XK_AudioPause,       spawn, {.v = playps}},
   { 0,                             XF86XK_AudioNext,        spawn, {.v = playnx}},
   { 0,                             XF86XK_AudioPrev,        spawn, {.v = playpr}},
 
